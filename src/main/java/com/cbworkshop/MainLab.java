@@ -10,11 +10,11 @@ import com.couchbase.client.java.Cluster;
 import com.couchbase.client.java.CouchbaseCluster;
 import com.couchbase.client.java.document.JsonDocument;
 import com.couchbase.client.java.document.json.JsonObject;
-import com.couchbase.client.java.query.AsyncN1qlQueryRow;
+import com.couchbase.client.java.env.CouchbaseEnvironment;
+import com.couchbase.client.java.env.DefaultCouchbaseEnvironment;
 import com.couchbase.client.java.query.N1qlQuery;
 import com.couchbase.client.java.query.N1qlQueryResult;
 import com.couchbase.client.java.query.N1qlQueryRow;
-import com.couchbase.client.java.query.Statement;
 import com.couchbase.client.java.search.SearchQuery;
 import com.couchbase.client.java.search.queries.MatchQuery;
 import com.couchbase.client.java.search.result.SearchQueryResult;
@@ -24,7 +24,6 @@ import com.couchbase.client.java.subdoc.DocumentFragment;
 import rx.Observable;
 
 import static com.couchbase.client.java.query.Select.select;
-import static com.couchbase.client.java.query.dsl.Expression.*;
 
 public class MainLab {
 	
@@ -46,6 +45,8 @@ public class MainLab {
 	public static void main(String[] args) { 
 		Scanner scanner = new Scanner(System.in);
 		initConnection();
+		welcome();
+		usage();
 		String cmdLn = null;
 		while(!CMD_QUIT.equalsIgnoreCase(cmdLn)){
 			try {
@@ -65,7 +66,6 @@ public class MainLab {
 	
 	private static void process(String cmdLn) {
 		String words[] = cmdLn.split(" ");
-		String key;
 		
 		switch(words[0].toLowerCase()){
 		case CMD_QUIT:
@@ -138,6 +138,7 @@ public class MainLab {
 
 	private static void queryAsync(String[] words) {
 
+
 	}
 	
 	private static void queryAirports(String[] words) {
@@ -145,10 +146,12 @@ public class MainLab {
 	}
 	
 	private static void bulkWrite(String[] words) {
+		
 
 	}
 
 	private static void bulkWriteSync(String[] words) {
+		
 
 	}
 	
@@ -156,12 +159,17 @@ public class MainLab {
 
 	}
 	
+	
+	private static void welcome() {
+		System.out.println("Welcome to CouchbaseJavaWorkshop!");
+	}
+	
 	private static void usage() {
-		System.out.println("usage : " + CMD_CREATE + " [key from to] | " + CMD_READ + " [key] | " 
-				+ CMD_UPDATE + " [airline_key] | " + CMD_SUBDOC + " [msg_key] | \n" + CMD_DELETE + " [msg_key] | " 
-				+ CMD_QUERY + " | " + CMD_QUERY_AIRPORTS + " [sourceairport destinationairport] | "
-				+ CMD_QUERY_ASYNC +  " | \n" + CMD_BULK_WRITE + " [size] | " + CMD_BULK_WRITE_SYNC + " [size] | "
-				+ CMD_SEARCH + " [term] | "+ CMD_QUIT);		
+		System.out.println("Usage options: \n\n" + CMD_CREATE + " [key from to] \n" + CMD_READ + " [key] \n" 
+				+ CMD_UPDATE + " [airline_key] \n" + CMD_SUBDOC + " [msg_key] \n" + CMD_DELETE + " [msg_key] \n" 
+				+ CMD_QUERY + " \n" + CMD_QUERY_AIRPORTS + " [sourceairport destinationairport] \n"
+				+ CMD_QUERY_ASYNC +  " \n" + CMD_BULK_WRITE + " [size] \n" + CMD_BULK_WRITE_SYNC + " [size] \n"
+				+ CMD_SEARCH + " [term] \n"+ CMD_QUIT);		
 	}
 
 }
